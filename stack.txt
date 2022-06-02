@@ -1,4 +1,3 @@
 react
-recoil
-react-query
-typescript
+redux
+styled-component
