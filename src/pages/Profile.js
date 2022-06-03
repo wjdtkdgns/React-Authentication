@@ -1,13 +1,15 @@
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/slice/auth-slice";
 
 const Profile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const LogoutHandler = () => {
     dispatch(authActions.logout());
+    navigate("/", { replace: true });
   };
 
   return (

@@ -10,12 +10,11 @@ const ChangePassword = () => {
   const idToken = useSelector((state) => state.auth.idToken);
   const navigate = useNavigate();
 
-  const SubmitHandler = () => {
-    const newPassword = passwordInputRef.current.value;
-    dispatch(
-      ChangePasswordHandler({ newPassword: newPassword, idToken: idToken })
-    );
-    navigate(-1, { replace: true });
+  const SubmitHandler = (event) => {
+    event.preventDefault();
+
+    const password = passwordInputRef.current.value;
+    dispatch(ChangePasswordHandler(idToken, password, navigate));
   };
   return (
     <Container>
