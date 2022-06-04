@@ -16,9 +16,13 @@ export const LoginHandler = (email, password, navigate) => {
         }
       })
       .then((response) => {
+        const expirationTime = new Date(
+          new Date().getTime() + +response.expiresIn * 1000
+        ).toISOString();
         dispatch(
           authActions.login({
             idToken: response.idToken,
+            expirationTime,
           })
         );
         navigate("/profile", { replace: true });
@@ -40,9 +44,13 @@ export const SignInHandler = (email, password) => {
         }
       })
       .then((response) => {
+        const expirationTime = new Date(
+          new Date().getTime() + +response.expiresIn * 1000
+        ).toISOString();
         dispatch(
           authActions.signIn({
             idToken: response.idToken,
+            expirationTime,
           })
         );
       })
@@ -57,7 +65,11 @@ export const ChangePasswordHandler = (idToken, password, navigate) => {
     changePassword(idToken, password)
       .then((response) => response.json())
       .then((response) => {
-        dispatch(authActions.changePassword({ idToken: response.idToken }));
+        dispatch(
+          authActions.changePassword({
+            idToken: response.idToken,
+          })
+        );
         navigate(-1, { replace: true });
       })
       .catch((err) => {
