@@ -21,6 +21,12 @@ const authSlice = createSlice({
       state.idToken = "";
       state.isLoggedIn = !state.isLoggedIn;
     },
+    signIn(state, action) {
+      localStorage.setItem("token", action.payload.idToken);
+
+      state.idToken = action.payload.idToken;
+      state.isLoggedIn = !!state.idToken;
+    },
     changePassword(state, action) {
       localStorage.setItem("token", action.payload.idToken);
 
